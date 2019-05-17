@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Classroom Sign In Sheet</title>
+<h1 style="font-family:verdana; color:white; text-align:center;">Classroom Sign In Sheet</h1>
+</head>
+
+<body style="background-color:#aa42f4; text-align:center;">
+<form method="post">
+    <p>
+        <label for="Name">Name:</label>
+        <input type="text" name="Name" id="Name">
+    </p>
+    <p>
+        <label for="Email">Email:</label>
+        <input type="text" name="Email" id="Email">
+    </p>
+    <p>
+        <label for="Time">Time In:</label>
+        <input type="text" name="Time" id="Time">
+    </p>
+	<p>
+    <input type="submit" value="Submit" onclick="addtoDB()">
+	</p>
+</form>
+<p id="submitted"></p>
+<script>
+function addtoDB() {
+  var xhttp; 
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+        document.getElementById("submitted").innerHTML = "form submitted";
+    }
+  };
+  var Name = document.getElementById('Name').value;
+   var Email = document.getElementById('Email').value;
+   var Time = document.getElementById('Time').value;
+   var queryString = "?Name=" + Name ;
+   
+   queryString +=  "&Email=" + Email + "&Time=" + Time;
+   console.log(queryString);
+   xhttp.open("GET", "insert.php" + queryString, true);
+   xhttp.send(null); 
+   //http://localhost/insert.php?firstname=julie&lastname=Gauthier&email=jgauthier@pace.edu
+}
+</script>
+
+<a href="http://localhost/show_records.php">See the current sign in sheet</a>
+</body>
+</html>
